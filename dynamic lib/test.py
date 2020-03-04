@@ -17,5 +17,11 @@ def oftest():
     print(of)
 #def eltest():
 #    print(gvmpyw.py_supermain())
+def imagetest():
+    a=np.float32([1.0,2.3,4.5])
+    ig=gvmpyw.Py_Image(a,3)
+    print(ig.py_getImage(3,a))
+    print(ig.py_getImageCount())
+    
 
-oftest()
+imagetest()

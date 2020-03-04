@@ -193,16 +193,16 @@ cdef extern from "gpuvmem/include/framework.cuh":
 
 #HACER MAIN
 #np.ndarray[ndim=1, dtype=np.float32_t] ESTO ES UN float*
-cdef object PyImageFactory(image* ptr):
-    cdef Py_Image py_obj = Py_Image()
-    py_obj.c_net = ptr
-    return py_obj
+#cdef object PyImageFactory(Image* ptr):
+#    cdef Py_Image py_obj = Py_Image()
+#    py_obj.c_net = ptr
+#    return py_obj
 
-cdef class Py_Visibilities:
-    def py_setMSDataset(self,MSData* ms):
-        setMSDataset(ms)
-    def py_getMSDataset(self):
-        getMSDataset()
+#cdef class Py_Visibilities:
+#    def py_setMSDataset(self,MSData* ms):
+#        setMSDataset(ms)
+#    def py_getMSDataset(self):
+#        getMSDataset()
 cdef class Py_ObjectiveFunction:
     cdef ObjectiveFunction *obF
     def __cinit__(self):
@@ -251,12 +251,13 @@ cdef class Py_Image:
         return self.img.getImageCount()
     def py_setImageCount(self,int a):
         self.img.setImageCount(a)
-    def py_getImage(self, int size):
-        return <float[:size]>self.img.getErrorImage() #La base del problema es que debo crear un np array del mismo tamaño que el return de la funcion, sin conocer sus dimensiones
+    def py_getImage(self, int size,arr):
+        return self.image.getImage()
+        #return <float[:size]>self.img.getErrorImage() #La base del problema es que debo crear un np array del mismo tamaño que el return de la funcion, sin conocer sus dimensiones
     def py_setImage(self,np.ndarray[ndim=1, dtype=np.float32_t] arr):
         self.img.setImage(&arr[0])
-    def py_getErrorImage(self,int size):
-        return <float[:size]>self.img.getErrorImage() #Lo mismo que getImage
+    def py_getErrorImage(self,int size,arr):
+        return <float[:size]> self.img.getErrorImage() #Lo mismo que getImage
     def py_setErrorImage(self,np.ndarray[ndim=1, dtype=np.float32_t] arr):
         self.img.setErrorImage(&arr[0])
 
