@@ -187,7 +187,7 @@ cdef extern from "gpuvmem/include/framework.cuh":
         void setImage(Image *i)
 
     cdef cppclass SynthesizerFactory:
-        Synthetizer* CreateSynthesizer(int SynthesizerId)
+        Synthesizer* CreateSynthesizer(int SynthesizerId)
 
 #ladelinfarto
 
